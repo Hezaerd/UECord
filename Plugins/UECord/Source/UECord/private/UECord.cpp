@@ -1,6 +1,6 @@
 // Copyright (c) 2024 hezaerd.com
 
-#include "UECord.h"
+#include "UECord/public/UECord.h"
 #include "Modules/ModuleManager.h"
 #include "Interfaces/IPluginManager.h"
 
