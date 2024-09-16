@@ -19,7 +19,7 @@ public:
 	}
 
 	// Check if the Discord GameSDK has been loaded
-	FORCEINLINE bool isDiscordSDKLoaded() const { return DiscordGameSDKHandle != nullptr; }
+	FORCEINLINE bool IsDiscordSDKLoaded() const { return DiscordGameSDKHandle != nullptr; }
 
 	// IModuleInterface
 	virtual void StartupModule() override;
