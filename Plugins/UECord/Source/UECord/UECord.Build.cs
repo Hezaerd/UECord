@@ -9,6 +9,8 @@ public class UECord : ModuleRules
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		bUseUnity = false;
 		
+		PublicDefinitions.Add("WITH_DISCORDGAMESDK=1");
+		
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
