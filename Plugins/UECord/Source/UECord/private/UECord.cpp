@@ -4,7 +4,7 @@
 #include "Modules/ModuleManager.h"
 #include "Interfaces/IPluginManager.h"
 
-DEFINE_LOG_CATEGORY(UECordLog);
+DEFINE_LOG_CATEGORY(LogUECord);
 
 const FName FUECordModule::ModuleName = "UECord";
 
@@ -20,11 +20,11 @@ void FUECordModule::StartupModule()
 		DiscordGameSDKHandle = FPlatformProcess::GetDllHandle(*LibraryPath);
 		if (DiscordGameSDKHandle)
 		{
-			UE_LOG(UECordLog, Log, TEXT("Discord GameSDK loaded successfully from [%s]"), *LibraryPath);
+			UE_LOG(LogUECord, Log, TEXT("Discord GameSDK loaded successfully from [%s]"), *LibraryPath);
 		}
 		else
 		{
-			UE_LOG(UECordLog, Error, TEXT("Failed to load Discord GameSDK from [%s]"), *LibraryPath);
+			UE_LOG(LogUECord, Error, TEXT("Failed to load Discord GameSDK from [%s]"), *LibraryPath);
 		}
 	}
 }
