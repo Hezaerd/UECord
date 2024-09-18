@@ -100,3 +100,44 @@ TStatId UDiscordCore::GetStatId() const
 {
 	RETURN_QUICK_DECLARE_CYCLE_STAT(UDiscordCore, STATGROUP_Tickables);
 }
+
+void UDiscordCore::UpdateActivity(FDiscordActivity NewActivity)
+{
+	if(!GetCore())
+	{
+		UE_LOG(LogUECord, Error, TEXT("DiscordCore is not initialized!"));
+		return;
+	}
+
+	auto activity = discord::Activity();
+	activity.SetState(TCHAR_TO_UTF8(*NewActivity.State));
+	activity.SetDetails(TCHAR_TO_UTF8(*NewActivity.Details));
+	activity.GetTimestamps().SetStart(NewActivity.StartTimestamp);
+	activity.GetTimestamps().SetEnd(NewActivity.EndTimestamp);
+	activity.GetAssets().SetLargeImage(TCHAR_TO_UTF8(*NewActivity.LargeImageKey));
+	activity.GetAssets().SetLargeText(TCHAR_TO_UTF8(*NewActivity.LargeImageText));
+	activity.GetAssets().SetSmallImage(TCHAR_TO_UTF8(*NewActivity.SmallImageKey));
+	activity.GetAssets().SetSmallText(TCHAR_TO_UTF8(*NewActivity.SmallImageText));
+	activity.GetParty().SetId(TCHAR_TO_UTF8(*NewActivity.PartyID));
+	activity.GetParty().GetSize().SetCurrentSize(NewActivity.CurrentSize);
+	activity.GetParty().GetSize().SetMaxSize(NewActivity.MaxSize);
+	activity.GetSecrets().SetMatch(TCHAR_TO_UTF8(*NewActivity.MatchSecret));
+	activity.GetSecrets().SetJoin(TCHAR_TO_UTF8(*NewActivity.JoinSecret));
+	activity.GetSecrets().SetSpectate(TCHAR_TO_UTF8(*NewActivity.SpectateSecret));
+	activity.SetInstance(NewActivity.Instance);
+
+	auto UpdateActivityHandler = [&](discord::Result Result)
+	{
+		if (Result == discord::Result::Ok)
+		{
+			UE_LOG(LogUECord, Log, TEXT("%s Success!"), *FString(__FUNCTION__))
+		}
+		else
+		{
+			UE_LOG(LogUECord, Error, TEXT("%s Failed! Error Code: %d"), *FString(__FUNCTION__), static_cast<int32>(Result))
+		}
+	};
+
+	GetCore()->ActivityManager().UpdateActivity(activity, UpdateActivityHandler);
+}
+

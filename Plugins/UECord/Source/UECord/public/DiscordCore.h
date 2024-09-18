@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DiscordTypes.h"
 #include "DiscordCore.generated.h"
 
 /** forward references
@@ -26,9 +27,6 @@ public:
 
 	virtual void BeginDestroy() override;
 	
-	UFUNCTION(BlueprintCallable, Category = "UECord|Core")
-		bool IsDiscordRunning() const { return Core != nullptr; };
-
 	FORCEINLINE discord::Core* GetCore() const { return Core; }
 
 	//* TickableGameObject interface
@@ -37,6 +35,9 @@ public:
 	virtual TStatId GetStatId() const override;
 	//*/
 
+	UFUNCTION(BlueprintCallable, Category = "UECord|Activity")
+		void UpdateActivity(FDiscordActivity NewActivity);
+	
 private:
 	void Initialize(bool bIsDiscordRequiered, int64 ClientID, int ReconnectLimit, float ReconnectDelay);
 	
