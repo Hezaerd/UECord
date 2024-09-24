@@ -26,6 +26,8 @@ class UECORD_API UDiscordActivityManager : public UObject, public IDiscordInterf
 public:
 	virtual void Create(UDiscordCore* DiscordCore) override;
 
+	UFUNCTION(BlueprintCallable, Category = "Discord|Activity")
+		void RegisterSteam(int32 steamId);
 
 	UFUNCTION(BlueprintCallable, Category = "Discord|Activity")
 		void UpdateActivity(const FDiscordActivity& Activity);

@@ -11,6 +11,18 @@ void UDiscordActivityManager::Create(UDiscordCore* DiscordCore)
 	IDiscordInterface::Create(DiscordCore);
 }
 
+void UDiscordActivityManager::RegisterSteam(int32 steamId)
+{
+	if (!GetCore())
+	{
+		UE_LOG(LogUECord, Error, TEXT("DiscordCore is not initialized!"));
+		return;
+	}
+
+	GetCore()->ActivityManager().RegisterSteam(steamId);
+}
+
+
 void UDiscordActivityManager::UpdateActivity(const FDiscordActivity& NewActivity)
 {
 	if(!GetCore())
